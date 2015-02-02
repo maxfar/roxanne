@@ -1,13 +1,25 @@
 require 'json'
-require 'RMagick'
+require "thor"
+require 'open3'
 
-config = JSON.parse(File.read('example/config.json'))
+class Roxanne < Thor
 
-correct = nil
-regression = nil
-config["tests"].each do |test|
-	correct = Magick::Image.read(test["correct_img"]).first
-	regression = Magick::Image.read(test["regression_img"]).first
+	desc "get", "gets all the configured screenshots needed to run tests"
+	def get(config_path)
+		if !File.exist?(config_path)
+			puts "Config file doesn't exist"
+			exit
+		end
+
+		config = JSON.parse(File.read(config_path))
+
+		config["tests"].each do |test|
+			cmd = "ruby " + test["capybara"] + " " + test["regression_img"] 
+			Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
+
+			end
+		end
+	end
 end
 
-puts correct.difference(regression)
+Roxanne.start(ARGV)

@@ -2,8 +2,8 @@
 	"tests": [
 		{
 			"correct_img": "./example/with-stub-data/stats/correct.png",
-			"regression_img": "./example/with-stub-data/stats/regression.png",
-			"capybara": "./with-stub-data/stats/yeah.rb"
+			"regression_img": "./example/with-stub-data/stats/correct.png",
+			"capybara": "./example/with-stub-data/stats/yeah.rb"
 		}
 	]
 }
